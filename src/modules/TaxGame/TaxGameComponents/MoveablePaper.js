@@ -5,20 +5,22 @@ import "../TaxGame.css"
 const MoveablePaper = (props) => {
   const [position, setPosition] = useState({ x: props.xPosition, y: props.yPosition });
   const [isDragging, setIsDragging] = useState(false);
+  const [isDraggingTouch, setIsDraggingTouch] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
 
+  //web-------------------------------------
   const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartPos({
-      x: e.clientX - position.x,
-      y: e.clientY - position.y,
-    });
+    if (!isDraggingTouch) { 
+      setIsDragging(true);
+      setStartPos({
+        x: e.clientX - position.x,
+        y: e.clientY - position.y,
+      });
+    }
   };
 
   const handleMouseMove = (e) => {
-    if (!isDragging) return;
-
-    // Update position based on global mouse position
+    if (!isDraggingTouch && !isDragging) return;
     setPosition({
       x: e.clientX - startPos.x,
       y: e.clientY - startPos.y,
@@ -29,7 +31,6 @@ const MoveablePaper = (props) => {
     setIsDragging(false);
   };
 
-  // Attach mouse move to the entire document so it doesn't stop when leaving the box
   useEffect(() => {
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
@@ -40,6 +41,44 @@ const MoveablePaper = (props) => {
       };
     }
   }, [isDragging]);
+  // end web-------------
+
+  
+  // //mobile----------------------------------
+  const handleTouchDown = (e) => {
+    setIsDraggingTouch(true);
+    setStartPos({
+      x: e.touches[0].clientX - position.x,
+      y: e.touches[0].clientY - position.y,
+    });
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDraggingTouch && !isDragging) return;
+    setPosition({
+      x: e.touches[0].clientX - startPos.x,
+      y: e.touches[0].clientY - startPos.y,
+    });
+  };
+
+  const handleTouchUp = () => {
+    setIsDraggingTouch(false);
+  };
+
+  useEffect(() => {
+    if (isDraggingTouch) {
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchUp);
+      return () => {
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchUp);
+      };
+    }
+  }, [isDraggingTouch]);
+  //end mobile-------------
+
+  // Attach mouse move to the entire document so it doesn't stop when leaving the box
+  
 
   return (
     <div
@@ -47,6 +86,13 @@ const MoveablePaper = (props) => {
         handleMouseDown(event);
         if (props.clickFunc) props.clickFunc(event);
       }}
+      
+      //mobile compatibility
+      onTouchStart={(event) => {
+        handleTouchDown(event);
+        if (props.clickFunc) props.clickFunc(event);
+      }}
+
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
@@ -55,7 +101,7 @@ const MoveablePaper = (props) => {
         backgroundColor: `${props.bg}`,
         userSelect: "none"
       }}
-      className={isDragging ? "add-shadow moveable-paper" : "moveable-paper"}
+      className={isDragging || isDraggingTouch ? "add-shadow moveable-paper" : "moveable-paper"}
     >
       Drag Me
     </div>
