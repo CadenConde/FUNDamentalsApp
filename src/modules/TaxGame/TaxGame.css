@@ -1,0 +1,17 @@
+.Tax-Game-Container {
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    background-color: lightblue;
+}
+.moveable-paper {
+    position: absolute;
+    cursor: grab;
+    transition: box-shadow .1s;
+}
+.add-shadow {
+    box-shadow: 8px 8px 1px rgba(0, 0, 0, .4);
+}
