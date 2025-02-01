@@ -51,6 +51,7 @@ const MoveablePaper = (props) => {
       x: e.touches[0].clientX - position.x,
       y: e.touches[0].clientY - position.y,
     });
+    e.touches = [];
   };
 
   const handleTouchMove = (e) => {
@@ -59,6 +60,7 @@ const MoveablePaper = (props) => {
       x: e.touches[0].clientX - startPos.x,
       y: e.touches[0].clientY - startPos.y,
     });
+    e.touches = [];
   };
 
   const handleTouchUp = () => {
