@@ -3,13 +3,21 @@ import "../TaxGame.css"
 
 
 const MoveablePaper = (props) => {
+  //furthest papers can go left/right and up/down
+  //(as a proportion of bounding box)
+  const maxX =.95
+  const maxY =.9
+
+
   const [position, setPosition] = useState({ x: props.xPosition, y: props.yPosition });
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingTouch, setIsDraggingTouch] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  
 
   //web-------------------------------------
   const handleMouseDown = (e) => {
+    console.log(position.x + " " + position.y)
     if (!isDraggingTouch) { 
       setIsDragging(true);
       setStartPos({
@@ -25,6 +33,10 @@ const MoveablePaper = (props) => {
       x: e.clientX - startPos.x,
       y: e.clientY - startPos.y,
     });
+    console.log(position.y)
+    console.log(props.bounds.height)
+    console.log(position.y)
+    console.log(props.bounds.width)
   };
 
   const handleMouseUp = () => {
@@ -78,9 +90,29 @@ const MoveablePaper = (props) => {
     }
   }, [isDraggingTouch]);
   //end mobile-------------
-
-  // Attach mouse move to the entire document so it doesn't stop when leaving the box
   
+
+  //this clamps position to avoid weird interactions
+  useEffect(() => { 
+    //this prevents being clamped before bounds are found
+    if (props.bounds.width > 0 && props.bounds.height > 0) { 
+      //clamp to max
+      if (props.bounds.width * maxX < position.x || props.bounds.height * maxY < position.y) {
+        setPosition({
+          x: props.bounds.width * maxX < position.x ? props.bounds.width * (maxX-0.01) : position.x,
+          y: props.bounds.height*maxY < position.y ? props.bounds.height* (maxY-0.01) : position.y,
+        });
+      }
+      //clamp to min
+      if (0 > position.x || 0 > position.y) { 
+        setPosition({
+          x: 0 > position.x ? 0.01 : position.x,
+          y: 0 > position.y ? 0.01 : position.y,
+        });
+        }
+    }
+  },[position, props.bounds.width, props.bounds.height])
+
 
   return (
     <div
@@ -96,8 +128,9 @@ const MoveablePaper = (props) => {
       }}
 
       style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
+        // clamp so stays on the table/can't leave the screen
+        left: `clamp(0px, ${position.x}px, ${props.bounds.width * maxX}px)`,
+        top: `clamp(0px, ${position.y}px, ${props.bounds.height * maxY}px)`,
         width: `${props.width}px`,
         height: `${props.height}px`,
         backgroundColor: `${props.bg}`,

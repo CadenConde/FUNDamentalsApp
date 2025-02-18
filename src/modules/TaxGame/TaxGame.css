@@ -7,6 +7,20 @@
     right: 0%;
     background-color: lightblue;
 }
+.desk {
+    height: 70vh;
+    width: 100vw;
+    position: absolute;
+    bottom: 0;
+    background-color: #40382A;
+}
+.Paper-Container{
+    width: 60%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
 .moveable-paper {
     position: absolute;
     cursor: grab;
