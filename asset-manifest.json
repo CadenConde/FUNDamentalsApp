@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/FUNDamentalsApp/static/css/main.da6d37d4.css",
-    "main.js": "/FUNDamentalsApp/static/js/main.90c2b777.js",
+    "main.css": "/FUNDamentalsApp/static/css/main.82eb4d8a.css",
+    "main.js": "/FUNDamentalsApp/static/js/main.96317ab4.js",
     "static/js/488.6b819407.chunk.js": "/FUNDamentalsApp/static/js/488.6b819407.chunk.js",
     "static/media/logo.svg": "/FUNDamentalsApp/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/FUNDamentalsApp/index.html",
-    "main.da6d37d4.css.map": "/FUNDamentalsApp/static/css/main.da6d37d4.css.map",
-    "main.90c2b777.js.map": "/FUNDamentalsApp/static/js/main.90c2b777.js.map",
+    "main.82eb4d8a.css.map": "/FUNDamentalsApp/static/css/main.82eb4d8a.css.map",
+    "main.96317ab4.js.map": "/FUNDamentalsApp/static/js/main.96317ab4.js.map",
     "488.6b819407.chunk.js.map": "/FUNDamentalsApp/static/js/488.6b819407.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.da6d37d4.css",
-    "static/js/main.90c2b777.js"
+    "static/css/main.82eb4d8a.css",
+    "static/js/main.96317ab4.js"
   ]
 }
