@@ -14,8 +14,43 @@
     bottom: 0;
     background-color: #40382A;
 }
+
+.folder{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: tan;
+    border-radius: 2rem;
+    left: 2.5vw;
+    bottom: 5vh;
+    height: 80vh;
+    width: 30vw;
+    z-index: 2;
+}
+
+.inner-folder{
+    display: block;
+    border-radius: 0em;
+    height: 70vh;
+    width: 25vw;
+    background-color: white;
+    padding: 1vh 1vw;
+}
+
+.inner-folder label{
+    display: block;
+}
+
+.file-button{
+    position: absolute;
+    left: 50%;
+    transform: translate(0 , -50%);
+}
+
 .Paper-Container{
-    width: 60%;
+    width: 65%;
     height: 100%;
     position: absolute;
     right: 0;
