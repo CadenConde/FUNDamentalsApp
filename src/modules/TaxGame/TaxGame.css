@@ -31,17 +31,49 @@
 }
 
 .inner-folder{
+    position: relative;
     display: block;
+    z-index: 10; /*above tabs*/
     border-radius: 0em;
     height: 70vh;
     width: 25vw;
     background-color: white;
     padding: 1vh 1vw;
 }
-
 .inner-folder label{
     display: block;
 }
+
+.tab-container{
+    display: flex;
+    position: absolute;
+    margin: 0 2em;
+    top: -1.5em;
+    left: 0;
+    gap: 1em;
+}
+.tab-container .tab{
+    z-index: 3; /*below paper*/
+    background-color: aquamarine;
+    border-radius: 1em 1em 0 0;
+    padding: 1em 0 2.5em 0;
+    width: 3em;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+.tab-container .active{
+    transform: translateY(-.5em);
+}
+
+.tab-container .disabled{
+    background-color: gray;
+}
+
+form input{
+    z-index: 100;
+}
+
 
 .file-button{
     position: absolute;

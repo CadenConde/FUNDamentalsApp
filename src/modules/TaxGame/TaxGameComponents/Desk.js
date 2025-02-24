@@ -1,7 +1,7 @@
 import React, { useRef, useState, useLayoutEffect } from "react";
 import MoveablePaper from './MoveablePaper'
 
-const Desk = () => {
+const Desk = (props) => {
     const deskRef = useRef(null);
     const [deskBounds, setDeskBounds] = useState({ width: 0, height: 0 });
     
@@ -23,11 +23,13 @@ const Desk = () => {
 
   //will get from database
   const papers = [
-    [10, 25, 500, 200, "green"],
-    [50, 200, 600, 300, "red"],
-    [60, 150, 300, 400, "orange"],
-    [100, 100, 400, 300, "yellow"],
-    [80, 50, 200, 400, "blue"]
+    //[xPos, yPos, width, height, color, diffThreshold, content]
+    [10, 25, 500, 200, "green", 0, "Social Sec. Card"],
+    [50, 200, 600, 300, "red", 0, "Drivers License"],
+    [60, 150, 300, 400, "orange", 0, "W-2"],
+    [100, 100, 400, 300, "yellow", 1, "Spouse Docs"],
+    [130, 50, 150, 450, "white", 2, "Receipt for Expenses"],
+    [80, 50, 200, 400, "blue", 4, "Dependant Docs"]
   ];
 
   //initialize index stack for moveable papers
@@ -55,20 +57,28 @@ const Desk = () => {
         >
             {/*Render all movable papers by order that they appear in the stack*/}
             {paperStack.map((index) => {
-                const [x, y, width, height, bg] = papers[index];
+              const [x, y, width, height, bg, diffNeeded, content] = papers[index];
+
+              // only show if difficulty threshold reached
+              if (props.difficulty >= diffNeeded) { 
                 return (
-                    <MoveablePaper
-                        deskRef={deskRef}
-                        bounds={deskBounds}
-                        key={index}
-                        xPosition={x + Math.random()*50}
-                        yPosition={y + Math.random()*50}
-                        width={width}
-                        height={height}
-                        bg={bg}
-                        clickFunc={() => bringToFront(index)}
-                    />    
+                  <MoveablePaper
+                      deskRef={deskRef}
+                      bounds={deskBounds}
+                      key={index}
+                      xPosition={x + Math.random()*50}
+                      yPosition={y + Math.random()*50}
+                      width={width}
+                      height={height}
+                      bg={bg}
+                      clickFunc={() => bringToFront(index)}
+                  >
+                    {content}
+                  </MoveablePaper>    
                 );
+              }
+
+              return;
             })}
         </div>
     );

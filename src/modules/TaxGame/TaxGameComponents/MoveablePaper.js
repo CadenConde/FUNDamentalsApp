@@ -138,7 +138,7 @@ const MoveablePaper = (props) => {
       }}
       className={isDragging || isDraggingTouch ? "add-shadow moveable-paper" : "moveable-paper"}
     >
-      Drag Me
+      {props.children}
     </div>
   );
   
