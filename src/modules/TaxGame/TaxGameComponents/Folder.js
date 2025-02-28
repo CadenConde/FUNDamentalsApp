@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 
 //temporary, remove when assets are replaced
 import { IoMdPerson } from "react-icons/io";
-import { FaChildren } from "react-icons/fa6";
+// import { FaChildren } from "react-icons/fa6";
 import { FaDollarSign } from "react-icons/fa";
 
 const Folder = (props) => {
@@ -17,8 +17,7 @@ const Folder = (props) => {
 	const [deductionType, setDeductionType] = useState("standard");
 	const [deductionAmount, setDeductionAmount] = useState("");
 	const [income, setIncome] = useState("");
-	const [spouseIncome, setSpouseIncome] = useState("");
-	const [dependents, setDependents] = useState("");
+	// const [dependents, setDependents] = useState("");
 	const [taxWithheld, setTaxWithheld] = useState("");
 
 	const folderRef = useRef(null);
@@ -56,10 +55,9 @@ const Folder = (props) => {
 		setSpouseName("");
 		setSpouseSSN("");
 		setDeductionType("standard");
-		setDeductionAmount();
-		setIncome();
-		setSpouseIncome();
-		setTaxWithheld();
+		setDeductionAmount("");
+		setIncome("");
+		setTaxWithheld("");
 	}
 
 	const handleSubmit = (event) => {
@@ -82,13 +80,18 @@ const Folder = (props) => {
 
 			//send info to parent
 			props.onSubmit(info);
-
-			setTimeout(() => {
-				clearForm();
-				folderRef.current.style.transform = "translateX(0)";
-			}, 1000);
 		}
 	};
+
+	//dont translate back until told
+	useEffect(() => {
+		console.log("translateBack: " + props.translate);
+		if (props.translate === true) {
+			clearForm();
+			folderRef.current.style.transform = "translateX(0)";
+		}
+	}, [props.translate]);
+
 	return (
 		<div className="folder" id="myFolder" ref={folderRef}>
 			{/* Tabs for switching sections */}
@@ -216,29 +219,13 @@ const Folder = (props) => {
 
 							{/* Income */}
 							<div>
-								<label>Income ($):</label>
+								<label>Income (household if filing jointly) ($):</label>
 								<input
 									type="number"
 									value={income}
 									onChange={(e) => setIncome(e.target.value)}
 								/>
 							</div>
-
-							{/* Income */}
-							<div>
-								<label>Spouse Income ($):</label>
-								<input
-									type="number"
-									value={spouseIncome}
-									onChange={(e) => setSpouseIncome(e.target.value)}
-									disabled={filingStatus !== "married"}
-								/>
-							</div>
-
-							{/* <div>
-								<label>Total Income ($):</label>
-								<p>{0 + income * 1 + spouseIncome * 1}</p>
-							</div> */}
 
 							{/* Deduction Selection */}
 							<div>
@@ -281,7 +268,7 @@ const Folder = (props) => {
 
 							{/* Tax Withheld */}
 							<div>
-								<label>Tax Withheld ($):</label>
+								<label>Withholdings ($):</label>
 								<input
 									type="number"
 									value={taxWithheld}

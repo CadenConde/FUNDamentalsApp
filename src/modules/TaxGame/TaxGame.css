@@ -113,6 +113,16 @@ form input {
 	box-shadow: 8px 8px 1px rgba(0, 0, 0, 0.4);
 }
 
+.Summary-Container {
+	position: absolute;
+	z-index: 999;
+	width: 90vw;
+	height: 90vh;
+	top: 5vh;
+	left: 5vw;
+	background-color: antiquewhite;
+}
+
 /* prescreen style */
 .Pre-Screen {
 	background-color: bisque;

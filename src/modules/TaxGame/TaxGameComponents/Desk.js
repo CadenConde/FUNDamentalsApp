@@ -46,7 +46,7 @@ const Desk = (props) => {
 		<div className="Paper-Container" ref={deskRef} id="desk">
 			{/*Render all movable papers by order that they appear in the stack*/}
 			{paperStack.map((index) => {
-				const [bg, doctype, content1, content2, content3] = props.papers[index];
+				const [doctype, content1, content2, content3] = props.papers[index];
 
 				return (
 					<MoveablePaper
@@ -56,7 +56,6 @@ const Desk = (props) => {
 						xPosition={200 + Math.random() * 100}
 						yPosition={100 + Math.random() * 100}
 						doctype={doctype}
-						bg={bg}
 						clickFunc={() => bringToFront(index)}>
 						<h2>{doctype}</h2>
 						<p>{content1}</p>

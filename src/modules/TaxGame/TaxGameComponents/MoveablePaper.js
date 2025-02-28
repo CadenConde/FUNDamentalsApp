@@ -132,7 +132,6 @@ const MoveablePaper = (props) => {
 				top: `clamp(0px, ${position.y}px, ${props.bounds.height * maxY}px)`,
 				width: `${props.width}px`,
 				height: `${props.height}px`,
-				// backgroundColor: `${props.bg}`,
 				userSelect: "none",
 			}}
 			className={
